@@ -26,7 +26,7 @@ copy_this_ex = """select * from aave.liquidations limit 543"""
 
 st.code(copy_this_ex)
 # content = """ """ 
-API_KEY = "48bd4a71-3872-4b90-a0a0-a8a879cfb113"
+API_KEY = "35c15448-9956-4a52-ad67-e0c81b47500c"
 API_KEY = st.text_input("Enter your API key", API_KEY )
 def ace():
     c1, c2 = st.columns([3, 1])
