@@ -147,123 +147,123 @@ def ace():
 
 
 
-                #Example controlers
-                st.subheader("St-AgGrid example options")
+                # #Example controlers
+                # st.subheader("St-AgGrid example options")
 
-                sample_size = st.number_input("rows", min_value=10, value=30)
-                grid_height = st.number_input("Grid height", min_value=200, max_value=800, value=300)
+                # sample_size = st.number_input("rows", min_value=10, value=30)
+                # grid_height = st.number_input("Grid height", min_value=200, max_value=800, value=300)
 
-                return_mode = st.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
-                return_mode_value = DataReturnMode.__members__[return_mode]
+                # return_mode = st.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
+                # return_mode_value = DataReturnMode.__members__[return_mode]
 
-                update_mode = st.selectbox("Update Mode", list(GridUpdateMode.__members__), index=6)
-                update_mode_value = GridUpdateMode.__members__[update_mode]
+                # update_mode = st.selectbox("Update Mode", list(GridUpdateMode.__members__), index=6)
+                # update_mode_value = GridUpdateMode.__members__[update_mode]
 
-                #enterprise modules
-                enable_enterprise_modules = st.checkbox("Enable Enterprise Modules")
-                if enable_enterprise_modules:
-                    enable_sidebar =st.checkbox("Enable grid sidebar", value=False)
-                else:
-                    enable_sidebar = False
+                # #enterprise modules
+                # enable_enterprise_modules = st.checkbox("Enable Enterprise Modules")
+                # if enable_enterprise_modules:
+                #     enable_sidebar =st.checkbox("Enable grid sidebar", value=False)
+                # else:
+                #     enable_sidebar = False
 
-                #features
-                fit_columns_on_grid_load = st.checkbox("Fit Grid Columns on Load")
+                # #features
+                # fit_columns_on_grid_load = st.checkbox("Fit Grid Columns on Load")
 
-                enable_selection=st.checkbox("Enable row selection", value=True)
-                if enable_selection:
-                    st.subheader("Selection options")
-                    selection_mode = st.radio("Selection Mode", ['single','multiple'], index=1)
+                # enable_selection=st.checkbox("Enable row selection", value=True)
+                # if enable_selection:
+                #     st.subheader("Selection options")
+                #     selection_mode = st.radio("Selection Mode", ['single','multiple'], index=1)
 
-                    use_checkbox = st.checkbox("Use check box for selection", value=True)
-                    if use_checkbox:
-                        groupSelectsChildren = st.checkbox("Group checkbox select children", value=True)
-                        groupSelectsFiltered = st.checkbox("Group checkbox includes filtered", value=True)
+                #     use_checkbox = st.checkbox("Use check box for selection", value=True)
+                #     if use_checkbox:
+                #         groupSelectsChildren = st.checkbox("Group checkbox select children", value=True)
+                #         groupSelectsFiltered = st.checkbox("Group checkbox includes filtered", value=True)
 
-                    if ((selection_mode == 'multiple') & (not use_checkbox)):
-                        rowMultiSelectWithClick = st.checkbox("Multiselect with click (instead of holding CTRL)", value=False)
-                        if not rowMultiSelectWithClick:
-                            suppressRowDeselection = st.checkbox("Suppress deselection (while holding CTRL)", value=False)
-                        else:
-                            suppressRowDeselection=False
-                    st.text("___")
+                #     if ((selection_mode == 'multiple') & (not use_checkbox)):
+                #         rowMultiSelectWithClick = st.checkbox("Multiselect with click (instead of holding CTRL)", value=False)
+                #         if not rowMultiSelectWithClick:
+                #             suppressRowDeselection = st.checkbox("Suppress deselection (while holding CTRL)", value=False)
+                #         else:
+                #             suppressRowDeselection=False
+                #     st.text("___")
 
-                enable_pagination = st.checkbox("Enable pagination", value=False)
-                if enable_pagination:
-                    st.subheader("Pagination options")
-                    paginationAutoSize = st.checkbox("Auto pagination size", value=True)
-                    if not paginationAutoSize:
-                        paginationPageSize = st.number_input("Page size", value=5, min_value=0, max_value=sample_size)
-                    st.text("___")
+                # enable_pagination = st.checkbox("Enable pagination", value=False)
+                # if enable_pagination:
+                #     st.subheader("Pagination options")
+                #     paginationAutoSize = st.checkbox("Auto pagination size", value=True)
+                #     if not paginationAutoSize:
+                #         paginationPageSize = st.number_input("Page size", value=5, min_value=0, max_value=sample_size)
+                #     st.text("___")
 
-                # df = fetch_data(sample_size)
+                # # df = fetch_data(sample_size)
 
-                #Infer basic colDefs from dataframe types
-                gb = GridOptionsBuilder.from_dataframe(df)
+                # #Infer basic colDefs from dataframe types
+                # gb = GridOptionsBuilder.from_dataframe(df)
 
-                #customize gridOptions
-                # gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
+                # #customize gridOptions
+                # # gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
 
-                # gb.configure_column("date_tz_aware", type=["dateColumnFilter","customDateTimeFormat"], custom_format_string='yyyy-MM-dd HH:mm zzz', pivot=True)
+                # # gb.configure_column("date_tz_aware", type=["dateColumnFilter","customDateTimeFormat"], custom_format_string='yyyy-MM-dd HH:mm zzz', pivot=True)
 
-                # gb.configure_column("apple", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=2, aggFunc='sum')
-                # gb.configure_column("banana", type=["numericColumn", "numberColumnFilter", "customNumericFormat"], precision=1, aggFunc='avg')
-                # gb.configure_column("chocolate", type=["numericColumn", "numberColumnFilter", "customCurrencyFormat"], custom_currency_symbol="R$", aggFunc='max')
+                # # gb.configure_column("apple", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=2, aggFunc='sum')
+                # # gb.configure_column("banana", type=["numericColumn", "numberColumnFilter", "customNumericFormat"], precision=1, aggFunc='avg')
+                # # gb.configure_column("chocolate", type=["numericColumn", "numberColumnFilter", "customCurrencyFormat"], custom_currency_symbol="R$", aggFunc='max')
 
-                #configures last row to use custom styles based on cell's value, injecting JsCode on components front end
-                cellsytle_jscode = JsCode("""
-                function(params) {
-                    if (params.value == 'A') {
-                        return {
-                            'color': 'white',
-                            'backgroundColor': 'darkred'
-                        }
-                    } else {
-                        return {
-                            'color': 'black',
-                            'backgroundColor': 'white'
-                        }
-                    }
-                };
-                """)
+                # #configures last row to use custom styles based on cell's value, injecting JsCode on components front end
+                # cellsytle_jscode = JsCode("""
+                # function(params) {
+                #     if (params.value == 'A') {
+                #         return {
+                #             'color': 'white',
+                #             'backgroundColor': 'darkred'
+                #         }
+                #     } else {
+                #         return {
+                #             'color': 'black',
+                #             'backgroundColor': 'white'
+                #         }
+                #     }
+                # };
+                # """)
 
-                if enable_sidebar:
-                    gb.configure_side_bar()
+                # if enable_sidebar:
+                #     gb.configure_side_bar()
 
-                if enable_selection:
-                    gb.configure_selection(selection_mode)
-                    if use_checkbox:
-                        gb.configure_selection(selection_mode, use_checkbox=True, groupSelectsChildren=groupSelectsChildren, groupSelectsFiltered=groupSelectsFiltered)
-                    if ((selection_mode == 'multiple') & (not use_checkbox)):
-                        gb.configure_selection(selection_mode, use_checkbox=False, rowMultiSelectWithClick=rowMultiSelectWithClick, suppressRowDeselection=suppressRowDeselection)
+                # if enable_selection:
+                #     gb.configure_selection(selection_mode)
+                #     if use_checkbox:
+                #         gb.configure_selection(selection_mode, use_checkbox=True, groupSelectsChildren=groupSelectsChildren, groupSelectsFiltered=groupSelectsFiltered)
+                #     if ((selection_mode == 'multiple') & (not use_checkbox)):
+                #         gb.configure_selection(selection_mode, use_checkbox=False, rowMultiSelectWithClick=rowMultiSelectWithClick, suppressRowDeselection=suppressRowDeselection)
 
-                if enable_pagination:
-                    if paginationAutoSize:
-                        gb.configure_pagination(paginationAutoPageSize=True)
-                    else:
-                        gb.configure_pagination(paginationAutoPageSize=False, paginationPageSize=paginationPageSize)
+                # if enable_pagination:
+                #     if paginationAutoSize:
+                #         gb.configure_pagination(paginationAutoPageSize=True)
+                #     else:
+                #         gb.configure_pagination(paginationAutoPageSize=False, paginationPageSize=paginationPageSize)
 
-                gb.configure_grid_options(domLayout='normal')
-                gridOptions = gb.build()
-
-
-                grid_response = AgGrid(
-                    df, 
-                    gridOptions=gridOptions,
-                    height=grid_height, 
-                    width='100%',
-                    data_return_mode=return_mode_value, 
-                    update_mode=update_mode_value,
-                    fit_columns_on_grid_load=fit_columns_on_grid_load,
-                    allow_unsafe_jscode=True, #Set it to True to allow jsfunction to be injected
-                    enable_enterprise_modules=enable_enterprise_modules,
-                    )
-
-                df = grid_response['data']
-                selected = grid_response['selected_rows']
-                selected_df = pd.DataFrame(selected).apply(pd.to_numeric, errors='coerce')
+                # gb.configure_grid_options(domLayout='normal')
+                # gridOptions = gb.build()
 
 
-                with st.spinner("Displaying results..."):
+                # grid_response = AgGrid(
+                #     df, 
+                #     gridOptions=gridOptions,
+                #     height=grid_height, 
+                #     width='100%',
+                #     data_return_mode=return_mode_value, 
+                #     update_mode=update_mode_value,
+                #     fit_columns_on_grid_load=fit_columns_on_grid_load,
+                #     allow_unsafe_jscode=True, #Set it to True to allow jsfunction to be injected
+                #     enable_enterprise_modules=enable_enterprise_modules,
+                #     )
+
+                # df = grid_response['data']
+                # selected = grid_response['selected_rows']
+                # selected_df = pd.DataFrame(selected).apply(pd.to_numeric, errors='coerce')
+
+
+                # with st.spinner("Displaying results..."):
                     
                     # st.subheader("grid selection:")
                     # selected_df = pd.DataFrame(grid_response['selected_rows'])
@@ -286,234 +286,234 @@ def ace():
                     #     )
                     #     # chart_type = st.selectbox("Chart type", ["scatter", "line", "bar"] ,key =2)
 
-                    chart_type = st.selectbox("Chart type", ["line", "bar", "scatter"])
+                chart_type = st.selectbox("Chart type", ["line", "bar", "scatter"])
 
 
-                    number_of_y_axis = st.number_input("Number of y values to plot", value=1, min_value=1, max_value=3)
-                    color = st.checkbox("Color sort?")
-                    log_y = st.checkbox("Log scale  Y ?")
-                    log_x = st.checkbox("Log scale  X ?")
+                number_of_y_axis = st.number_input("Number of y values to plot", value=1, min_value=1, max_value=3)
+                color = st.checkbox("Color sort?")
+                log_y = st.checkbox("Log scale  Y ?")
+                log_x = st.checkbox("Log scale  X ?")
 
 
-                    if number_of_y_axis == 1:
-                        x = st.selectbox("X axis", df.columns, index = 0)
-                        y = st.selectbox("Y axis", df.columns, index = 3)
-                        if color:
-                            color_sort = st.selectbox("Color by", df.columns)
-                            if chart_type == "line":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =y, x ="{x}", color=color_sort, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =y, x =x, color=color_sort, log_y=True), use_container_width=True)
+                if number_of_y_axis == 1:
+                    x = st.selectbox("X axis", df.columns, index = 0)
+                    y = st.selectbox("Y axis", df.columns, index = 3)
+                    if color:
+                        color_sort = st.selectbox("Color by", df.columns)
+                        if chart_type == "line":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =y, x ="{x}", color=color_sort, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", color="{color_sort}"), use_container_width=True)')
-                                    st.plotly_chart(px.line(df, y =y, x =x, color=color_sort), use_container_width=True)
-                            if chart_type == "bar":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =y, x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =y, x =x, color=color_sort, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =y, x =x, color=color_sort, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", color="{color_sort}"), use_container_width=True)')
+                                st.plotly_chart(px.line(df, y =y, x =x, color=color_sort), use_container_width=True)
+                        if chart_type == "bar":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =y, x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", color="{color_sort}"), use_container_width=True)')
-                                    st.plotly_chart(px.bar(df, y =y, x =x, color=color_sort), use_container_width=True)
-                            if chart_type == "scatter":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =y, x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =y, x =x, color=color_sort, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =y, x =x, color=color_sort, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", color="{color_sort}"), use_container_width=True)')
+                                st.plotly_chart(px.bar(df, y =y, x =x, color=color_sort), use_container_width=True)
+                        if chart_type == "scatter":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =y, x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", color="{color_sort}"), use_container_width=True)')
-                                    st.plotly_chart(px.scatter(df, y =y, x =x, color=color_sort), use_container_width=True)
-                        else:
-                            if chart_type == "line":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =y, x =x, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =y, x =x, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =y, x =x, color=color_sort, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", color="{color_sort}"), use_container_width=True)')
+                                st.plotly_chart(px.scatter(df, y =y, x =x, color=color_sort), use_container_width=True)
+                    else:
+                        if chart_type == "line":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =y, x =x, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}"), use_container_width=True)')
-                                    st.plotly_chart(px.line(df, y =y, x =x), use_container_width=True)
-                            if chart_type == "bar":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =y, x =x, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =y, x =x, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =y, x =x, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.line(df, y ="{y}", x ="{x}"), use_container_width=True)')
+                                st.plotly_chart(px.line(df, y =y, x =x), use_container_width=True)
+                        if chart_type == "bar":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =y, x =x, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}"), use_container_width=True)')
-                                    st.plotly_chart(px.bar(df, y =y, x =x), use_container_width=True)
-                            if chart_type == "scatter":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =y, x =x, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =y, x =x, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =y, x =x, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.bar(df, y ="{y}", x ="{x}"), use_container_width=True)')
+                                st.plotly_chart(px.bar(df, y =y, x =x), use_container_width=True)
+                        if chart_type == "scatter":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =y, x =x, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}"), use_container_width=True)')
-                                    st.plotly_chart(px.scatter(df, y =y, x =x), use_container_width=True)
-                    if number_of_y_axis == 2:
-                        x = st.selectbox("X-axis", df.columns)
-                        y1 = st.selectbox("Y-axis 1", df.columns)
-                        y2 = st.selectbox("Y-axis 2", df.columns)
-                        if color:
-                            color_sort = st.selectbox("Color", df.columns)
-                            if chart_type == "line":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =[y1, y2], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =[y1, y2], x =x, color=color_sort, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =y, x =x, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.scatter(df, y ="{y}", x ="{x}"), use_container_width=True)')
+                                st.plotly_chart(px.scatter(df, y =y, x =x), use_container_width=True)
+                if number_of_y_axis == 2:
+                    x = st.selectbox("X-axis", df.columns)
+                    y1 = st.selectbox("Y-axis 1", df.columns)
+                    y2 = st.selectbox("Y-axis 2", df.columns)
+                    if color:
+                        color_sort = st.selectbox("Color", df.columns)
+                        if chart_type == "line":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =[y1, y2], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
-                                    st.plotly_chart(px.line(df, y =[y1, y2], x =x, color=color_sort), use_container_width=True)
-                            if chart_type == "bar":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =[y1, y2], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =[y1, y2], x =x, color=color_sort, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =[y1, y2], x =x, color=color_sort, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
+                                st.plotly_chart(px.line(df, y =[y1, y2], x =x, color=color_sort), use_container_width=True)
+                        if chart_type == "bar":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =[y1, y2], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
-                                    st.plotly_chart(px.bar(df, y =[y1, y2], x =x, color=color_sort), use_container_width=True)
-                            if chart_type == "scatter":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, color=color_sort, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =[y1, y2], x =x, color=color_sort, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
+                                st.plotly_chart(px.bar(df, y =[y1, y2], x =x, color=color_sort), use_container_width=True)
+                        if chart_type == "scatter":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
-                                    st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, color=color_sort), use_container_width=True)
-                        else:
-                            if chart_type == "line":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =[y1, y2], x =x, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =[y1, y2], x =x, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, color=color_sort, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
+                                st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, color=color_sort), use_container_width=True)
+                    else:
+                        if chart_type == "line":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =[y1, y2], x =x, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}"), use_container_width=True)')
-                                    st.plotly_chart(px.line(df, y =[y1, y2], x =x), use_container_width=True)
-                            if chart_type == "bar":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =[y1, y2], x =x, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =[y1, y2], x =x, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =[y1, y2], x =x, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}"], x ="{x}"), use_container_width=True)')
+                                st.plotly_chart(px.line(df, y =[y1, y2], x =x), use_container_width=True)
+                        if chart_type == "bar":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =[y1, y2], x =x, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}"), use_container_width=True)')
-                                    st.plotly_chart(px.bar(df, y =[y1, y2], x =x), use_container_width=True)
-                            if chart_type == "scatter":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =[y1, y2], x =x, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}"], x ="{x}"), use_container_width=True)')
+                                st.plotly_chart(px.bar(df, y =[y1, y2], x =x), use_container_width=True)
+                        if chart_type == "scatter":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}"), use_container_width=True)')
-                                    st.plotly_chart(px.scatter(df, y =[y1, y2], x =x), use_container_width=True)
-                    if number_of_y_axis == 3:
-                        x = st.selectbox("X-axis", df.columns)
-                        y1 = st.selectbox("Y-axis 1", df.columns)
-                        y2 = st.selectbox("Y-axis 2", df.columns)
-                        y3 = st.selectbox("Y-axis 3", df.columns)
-                        if color:
-                            color_sort = st.selectbox("Color", df.columns)
-                            if chart_type == "line":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =[y1, y2], x =x, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}"], x ="{x}"), use_container_width=True)')
+                                st.plotly_chart(px.scatter(df, y =[y1, y2], x =x), use_container_width=True)
+                if number_of_y_axis == 3:
+                    x = st.selectbox("X-axis", df.columns)
+                    y1 = st.selectbox("Y-axis 1", df.columns)
+                    y2 = st.selectbox("Y-axis 2", df.columns)
+                    y3 = st.selectbox("Y-axis 3", df.columns)
+                    if color:
+                        color_sort = st.selectbox("Color", df.columns)
+                        if chart_type == "line":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
-                                    st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, color=color_sort), use_container_width=True)
-                            if chart_type == "bar":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
+                                st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, color=color_sort), use_container_width=True)
+                        if chart_type == "bar":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
-                                    st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, color=color_sort), use_container_width=True)
-                            if chart_type == "scatter":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
+                                st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, color=color_sort), use_container_width=True)
+                        if chart_type == "scatter":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
-                                    st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, color=color_sort), use_container_width=True)
-                        else:
-                            if chart_type == "line":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, color=color_sort, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", color="{color_sort}"), use_container_width=True)')
+                                st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, color=color_sort), use_container_width=True)
+                    else:
+                        if chart_type == "line":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}"), use_container_width=True)')
-                                    st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x), use_container_width=True)
-                            if chart_type == "bar":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.line(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}"), use_container_width=True)')
+                                st.plotly_chart(px.line(df, y =[y1, y2, y3], x =x), use_container_width=True)
+                        if chart_type == "bar":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}"), use_container_width=True)')
-                                    st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x), use_container_width=True)
-                            if chart_type == "scatter":
-                                if log_y:
-                                    if log_x:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, log_y=True, log_x=True), use_container_width=True)
-                                    else:
-                                        st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True), use_container_width=True)')
-                                        st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, log_y=True), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.bar(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}"), use_container_width=True)')
+                                st.plotly_chart(px.bar(df, y =[y1, y2, y3], x =x), use_container_width=True)
+                        if chart_type == "scatter":
+                            if log_y:
+                                if log_x:
+                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True, log_x=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, log_y=True, log_x=True), use_container_width=True)
                                 else:
-                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}"), use_container_width=True)')
-                                    st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x), use_container_width=True)
+                                    st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}", log_y=True), use_container_width=True)')
+                                    st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x, log_y=True), use_container_width=True)
+                            else:
+                                st.code(f'st.plotly_chart(px.scatter(df, y =["{y1}", "{y2}", "{y3}"], x ="{x}"), use_container_width=True)')
+                                st.plotly_chart(px.scatter(df, y =[y1, y2, y3], x =x), use_container_width=True)
 
 
 ace()
