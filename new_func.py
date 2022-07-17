@@ -229,7 +229,7 @@ def ace():
 
     if number_of_y_axis == 1:
         x = st.selectbox("X axis", df.columns, index = 0)
-        y = st.selectbox("Y axis", df.columns, index = 3)
+        y = st.selectbox("Y axis", df.columns, index = 0)
         if color:
             color_sort = st.selectbox("Color by", df.columns)
             if chart_type == "line":

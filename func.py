@@ -13,7 +13,7 @@ import pandas as pd
 import numpy as np
 import altair as alt
 from itertools import cycle
-from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
+# from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
 import pandas as pd
 import pandas_profiling
 import streamlit as st
