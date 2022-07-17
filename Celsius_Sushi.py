@@ -101,23 +101,23 @@ st.write(df_Celsius_sushi_polygon_staking)
 merged_df = pd.merge(df_Celsius_sushi_ethereum_swaps, df_Celsius_sushi_ethereum_staking, on="HOUR")
 st.write(merged_df)
 
-def gen_report(df):
+# def gen_report(df):
 
-        pr = gen_profile_report(df, explorative=True)
+#         pr = gen_profile_report(df, explorative=True)
 
-        st.write(df)
+#         st.write(df)
 
-        with st.expander("REPORT", expanded=True):
-            st_profile_report(pr)
+#         with st.expander("REPORT", expanded=True):
+#             st_profile_report(pr)
 
 
-@st.cache(allow_output_mutation=True)
-def gen_profile_report(df, *report_args, **report_kwargs):
-    return df.profile_report(*report_args, **report_kwargs)
-gen_report_click = st.checkbox("Generate report", False)
-if gen_report_click:
-    gen_report(df=merged_df)
-df = merged_df
+# @st.cache(allow_output_mutation=True)
+# def gen_profile_report(df, *report_args, **report_kwargs):
+#     return df.profile_report(*report_args, **report_kwargs)
+# gen_report_click = st.checkbox("Generate report", False)
+# if gen_report_click:
+#     gen_report(df=merged_df)
+# df = merged_df
 
 st.subheader("CELIUS on-chain activity on SUSHISWAP")
 st.write("This reports will propose an analyze of CELIUS on chain activity on SUSHISWAP. It presents informations from different angles.")
