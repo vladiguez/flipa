@@ -13,13 +13,13 @@ import pandas as pd
 import numpy as np
 import altair as alt
 from itertools import cycle
-from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
+# from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
 import pandas as pd
-import pandas_profiling
+# import pandas_profiling
 import streamlit as st
 
 # from streamlit_gallery.utils.readme import readme
-from streamlit_pandas_profiling import st_profile_report
+# from streamlit_pandas_profiling import st_profile_report
 st.set_page_config(layout="wide")
 
 Velo_Duration = "https://node-api.flipsidecrypto.com/api/v2/queries/459ede1c-ada4-4c66-a065-8c99de8b4bb9/data/latest"
