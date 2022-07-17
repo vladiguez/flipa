@@ -59,7 +59,7 @@ st.write(df_Velo_Duration)
 
 st.subheader("Lockin Duration Analysis")
 st.write("Among the 3 main locking periods: short term (from 1 day to 2 weeks), mid term (1 year) and long term (4 years), we observe more volume on the very long term, meaning that LPers have globally a longer term staking strategy ")
-st.plotly_chart(px.scatter(df, y ="VALUE", x ="LOCKIN_DURATION", color="DEPOSIT_TYPE", log_y=True), use_container_width=True)
+st.plotly_chart(px.scatter(df_Velo_Duration, y ="VALUE", x ="LOCKIN_DURATION", color="DEPOSIT_TYPE", log_y=True), use_container_width=True)
 
 # st.write("OUT FLOWS")
 # st.write("all the Assets - USD equivalent - token name and volumes. Those flows could come from swap, farming LDO, CVX, AAVE are well represented." )
