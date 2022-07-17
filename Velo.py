@@ -26,7 +26,7 @@ Velo_Duration = "https://node-api.flipsidecrypto.com/api/v2/queries/459ede1c-ada
 
 st.subheader("Lockin Duration")
 df_Velo_Duration = pd.read_json(
-    df_Velo_Duration,
+    Velo_Duration,
     convert_dates=["TIMESTAMP_NTZ"],
 )
 st.write(df_Velo_Duration)
