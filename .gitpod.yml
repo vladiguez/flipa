@@ -3,5 +3,5 @@ tasks:
   - name: requirements
     init: >
       pip install pipreqs && pipreqs --force
-    command: pip install -r requirements.txt && gp sync-done requirements  
-  
+    command: pip install -r requirements.txt
+   

@@ -119,47 +119,36 @@ if gen_report_click:
     gen_report(df=merged_df)
 df = merged_df
 
+st.subheader("CELIUS on-chain activity on SUSHISWAP")
+st.write("This reports will propose an analyze of CELIUS on chain activity on SUSHISWAP. It presents informations from different angles.")
+st.write("We started by identifying all Celsius Project Names: celsius,celsiusx,celsius network. Then we extract Crosschain data, swap, lending and borrowing. And then Focus on Ethereum Mainnet and Polygon, Swaps, Staking, Rewards activity.")
+st.write("We rapidly noticed that Celius was only active on ETHEREUM Mainnet, nothing on Polygon or any toher blockchain. Also Celsius had no lending and borrowing crosschain activity ")
+st.write("We could not find any reward distributed on Sushi as well.")
+st.write("Consequently, we will focus on the activity that we observed on Mainnet, In flow, outflow, and staking.")
 
-st.subheader("GAS PRICE vs ASSET PRICES")
-st.write("In the chart, ETH prices does not really influence gas price. We clearly see high fees on both range of the ETH price. It s less obvious for Polygon though. ")
-st.plotly_chart(px.scatter(merged_df, x="MATICUSD_AVG", y="PRICE", color="EGAS_PRICE_AVG_USD"), use_container_width=True)
 
-st.subheader("ETH GAS PRICE vs ETH PRICE")
-st.write("More in details, on ETH we see high fees in both sides of the ETH price range")
-st.plotly_chart(px.bar(df, y ="EGAS_PRICE_AVG_USD", x ="HOUR", color="PRICE"), use_container_width=True)
+st.subheader("CELSIUS CROSSCHAIN ACTIVITY")
+st.write("IN FLOWS")
+st.write("all the Assets - USD equivalent - token name and volumes. Those flows could come from swap, farming LDO, CVX, AAVE are well represented." )
+st.plotly_chart(px.scatter(df_Celsius_sushi_crosschain_swaps, y ="AMOUNT_IN_USD", x ="SYMBOL_IN", color="BLOCKCHAIN"), use_container_width=True)
+st.plotly_chart(px.scatter(df_Celsius_sushi_crosschain_swaps, y ="AMOUNT_IN_USD", x ="BLOCK_TIMESTAMP", color="SYMBOL_IN"), use_container_width=True)
 
-st.subheader("POLYGON GAS PRICE vs MATIC PRICE")
-st.write("Again here, we can t really say the MATIC price influence the Gas Price")
-st.plotly_chart(px.bar(df, y ="GAS_PRICE_AVG_USD", x ="HOUR", color="MATICUSD_AVG"), use_container_width=True)
+st.write("OUT FLOWS")
+st.write("all the Assets - USD equivalent - token name and volumes. Those flows could come from swap, farming LDO, CVX, AAVE are well represented." )
+st.plotly_chart(px.scatter(df_Celsius_sushi_crosschain_swaps, y ="AMOUNT_OUT_USD", x ="SYMBOL_OUT", color="BLOCKCHAIN"), use_container_width=True)
+st.plotly_chart(px.scatter(df_Celsius_sushi_crosschain_swaps, y ="AMOUNT_OUT_USD", x ="BLOCK_TIMESTAMP", color="SYMBOL_OUT"), use_container_width=True)
+#######################################
 
-st.subheader("MARKET IMPACT on ETH and MATIC GAS PRICES")
-st.write("The chart is very interesting as we see High Gas prices in the higher and lower range of the asset price. But more than that, we notice a drop a Gas prices and when we observe big price change. Litteraly, we can start that market volatility as a bigger impact on GAS prices than the the ASSET prices aboslute value")
-st.plotly_chart(px.scatter(df, y =["GAS_PRICE_AVG_USD", "EGAS_PRICE_AVG_USD"], x ="HOUR", color="PRICE", log_y=True), use_container_width=True)
+st.subheader("CELSIUS SUSHI- MAINNET ACTIVITY ")
+st.write("IN FLOWS")
+st.plotly_chart(px.bar(df_Celsius_sushi_ethereum_swaps, y ="AMOUNT_IN_USD", x ="SYMBOL_IN", color="SYMBOL_IN"), use_container_width=True)
+st.plotly_chart(px.scatter(df_Celsius_sushi_ethereum_swaps, y =["SYMBOL_IN", "AMOUNT_IN_USD"], x ="BLOCK_TIMESTAMP", color="AMOUNT_IN_USD"), use_container_width=True)
+st.write("OUT FLOWS")
+st.plotly_chart(px.bar(df_Celsius_sushi_ethereum_swaps, y ="AMOUNT_OUT_USD", x ="SYMBOL_OUT", color="SYMBOL_OUT"), use_container_width=True)
+st.plotly_chart(px.scatter(df_Celsius_sushi_ethereum_swaps, y =["SYMBOL_OUT", "AMOUNT_OUT_USD"], x ="BLOCK_TIMESTAMP", color="AMOUNT_OUT_USD"), use_container_width=True)
+#######################################
 
-st.subheader("MARKET IMPACT on ETH and MATIC TRANSACTION FEES")
-st.write("The chart focus on fees paid per hour on ETH and Polygon. Unlike the gas price, we observe a spike in transaction fees during volatility market drop.")
-st.plotly_chart(px.scatter(df, y =["PFEES", "EFEES_USD", "PRICE"], x ="HOUR", color="PRICE", log_y=True), use_container_width=True)
+st.subheader("CELSIUS STAKING activity on SUSHI-ETHEREUM MAINNET")
+st.plotly_chart(px.scatter(df_Celsius_sushi_ethereum_staking, y ="EVENT_NAME", x ="CONTRACT_NAME"), use_container_width=True)
 
-st.subheader("POLYGON FEES vs MATIC GAS PRICE")
-st.write("More in details, this chart is very interesting as we observe the Negative Correlation between GAS price and PAID FEES")
-st.plotly_chart(px.scatter(df, y =["PFEES", "GAS_PRICE_AVG_USD"], x ="HOUR", log_y=True), use_container_width=True)
-
-st.subheader("ETH FEES vs ETH GAS PRICE")
-st.write("Same on ETH, Negative Correlation between GAS price and PAID FEES ")
-st.plotly_chart(px.scatter(df, y =["EFEES_USD", "EGAS_PRICE_AVG_USD"], x ="HOUR", log_y=True), use_container_width=True)
-
-st.write("The Negative correlation is counter Intuitive, so in order to understand how the could happen, we will have a close look in Gas limit efficiency")
-
-st.subheader("MATIC GAS LIMIT EFFICIENCY")
-st.write("Very interesting chart showing how Market volatily impacts the GAS LIMIT efficiency")
-st.plotly_chart(px.scatter(df, y ="PCT_AVG_GAS_LIMIT_EFFICIENCY_PER_TRANSACTION", x ="HOUR", color="MATICUSD_AVG", log_y=True), use_container_width=True)
-    
-st.subheader("MATICS GAS LIMIT EFFICIENCY")
-st.write("SAME on ETH, the Market volatily impacts the GAS LIMIT efficiency")
-st.plotly_chart(px.scatter(df, y ="PCT_AVG_EGAS_LIMIT_EFFICIENCY", x ="HOUR", color="PRICE", log_y=True), use_container_width=True)
-    # pip install pandas_profiling --user
-    # pip install streamlit_pandas_profiling --user
-
-st.subheader("CONSEQUENTLY")
-st.write("Even though we observe a drop in GAS PRICE due to ASSET PRICE drop, during a high volatility period, GAS LIMIT use becomes more Ineficiency reflecting the market panic, or the emergency of each transaction to be validated.")
-st.write("Last observation regarding Polygon FEES, we observe a strong drop in transaction fees since the 5th of July, but we can't really dig deeper into that direction because of a lack of data in FS Tables.")  
+#######################################
